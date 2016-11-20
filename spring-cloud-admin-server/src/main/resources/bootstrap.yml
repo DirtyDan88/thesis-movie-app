@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: spring-cloud-admin-server
+  cloud:
+    config:
+      failFast: true
+      #label: master # can be used for versioning
+      uri: http://localhost:8888
+
+server:
+  port: ${port:8766}
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: true
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    config:
+      failFast: true
+      uri: http://spring-cloud-config-server:8888

@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: netflix-turbine-aggregator
+  rabbitmq:
+    addresses: localhost:5672
+server:
+  port: 8989
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    config:
+      failFast: true
+      uri: http://spring-cloud-config-server:8888
+  rabbitmq:
+    addresses: rabbit-mq-server:5672

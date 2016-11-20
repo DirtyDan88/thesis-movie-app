@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: netflix-zuul-proxy
+  cloud:
+    config:
+      failFast: true
+      #label: master # can be used for versioning
+      uri: http://localhost:8888
+
+server:
+  port: ${port:8765}
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: true
+
+zuul:
+  ignoredServices: "*"
+  routes:
+    api-gateway:
+      path: /json-api/**

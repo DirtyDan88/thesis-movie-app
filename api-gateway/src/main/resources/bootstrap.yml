@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    config:
+      failFast: true
+      #label: master # can be used for versioning
+      uri: http://localhost:8888
+  rabbitmq:
+    addresses: localhost:5672
+
+server:
+  port: ${port:8080}
+
+
+
+# manuel-client | loadbalanced-client | loadbalanced-rest-client | 
+#   feign-client | feign-vertx-client
+service:
+  integration:
+    movie-client: feign-client
+    person-client: feign-client
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    config:
+      failFast: true
+      uri: http://spring-cloud-config-server:8888
+  rabbitmq:
+    addresses: rabbit-mq-server:5672
+
+service:
+  integration:
+    movie-client: feign-client
+    person-client: feign-client

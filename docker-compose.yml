@@ -1,0 +1,82 @@
+### thesis-movie-app ###
+
+netflix-eureka-server:
+  image: netflix-eureka-server
+  ports:
+   - "8761:8761"
+
+spring-cloud-config-server:
+  image: spring-cloud-config-server
+  ports:
+   - "8888:8888"
+
+netflix-zuul-proxy:
+  image: netflix-zuul-proxy
+  links:
+   - spring-cloud-config-server
+   - netflix-eureka-server
+  ports:
+   - "8765:8765"
+
+spring-cloud-admin-server:
+  image: spring-cloud-admin-server
+  links:
+   - spring-cloud-config-server
+   - netflix-eureka-server
+  ports:
+   - "8766:8766"
+
+
+
+netflix-hystrix-dashboard:
+  image: netflix-hystrix-dashboard
+  links:
+   - spring-cloud-config-server
+   - netflix-turbine-aggregator
+  ports:
+   - "7979:7979"
+
+netflix-turbine-aggregator:
+  image: netflix-turbine-aggregator
+  links:
+   - spring-cloud-config-server
+   - rabbitmq-broker
+  ports:
+   - "8989:8989"
+
+rabbitmq-broker:
+  image: rabbitmq:3.5.3-management
+  expose:
+   - "5672"
+  ports:
+   - "5672:5672"
+
+
+
+api-gateway:
+  image: api-gateway
+  links:
+   - spring-cloud-config-server
+   - netflix-eureka-server
+   - rabbitmq-broker
+  ports:
+   - "8080:8080"
+
+microservice-movie:
+  image: microservice-movie
+  links:
+   - spring-cloud-config-server
+   - netflix-eureka-server
+   - rabbitmq-broker
+  ports:
+   - "8090:8090"
+
+microservice-person:
+  image: microservice-person
+  links:
+   - spring-cloud-config-server
+   - netflix-eureka-server
+   - rabbitmq-broker
+  ports:
+   - "8070:8070"
+

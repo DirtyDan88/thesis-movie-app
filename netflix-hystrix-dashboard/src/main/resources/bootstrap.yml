@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: netflix-hystrix-dashboard
+  cloud:
+    config:
+      failFast: true
+      #label: master # can be used for versioning
+      uri: http://localhost:8888
+
+server:
+    port: 7979
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    config:
+      failFast: true
+      uri: http://spring-cloud-config-server:8888

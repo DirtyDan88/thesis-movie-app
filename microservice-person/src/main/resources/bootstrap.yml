@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: person-service
+  cloud:
+    config:
+      failFast: true
+      #label: master # can be used for versioning
+      uri: http://localhost:8888
+  rabbitmq:
+    addresses: localhost:5672
+
+server:
+  port: ${port:8070}
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    config:
+      failFast: true
+      uri: http://spring-cloud-config-server:8888
+  rabbitmq:
+    addresses: rabbit-mq-server:5672

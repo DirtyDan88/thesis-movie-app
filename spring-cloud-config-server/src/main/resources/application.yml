@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: spring-cloud-config-server
+  cloud:
+    config:
+      enabled: false
+      server:
+        git:
+          uri: https://github.com/DirtyDan88/thesis-movie-app-config-repo
+server:
+  port: ${port:8888}
